@@ -1,0 +1,13 @@
+# This is the basic manifest to run any simple test, this will use linkerd.
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: test-basic
+spec:
+  parallelism: 1
+  starter:
+    image: { STARTER_IMAGE }
+  runner:
+    image: { RUNNER_IMAGE }
+  script:
+    localFile: /test/test.js

@@ -8,6 +8,12 @@ RUN curl -sSLo /tmp/linkerd-await https://github.com/linkerd/linkerd-await/relea
 # Prepares the runner image contents
 FROM grafana/k6:latest
 
+ARG TEST
+
 COPY --from=linkerd /tmp/linkerd-await ./linkerd-await
-COPY rate-limiter/test.js /test/test.js
+
+# The proto information is always loaded into the container
 COPY envoy-protos/envoy.protoset /test/envoy.protoset
+
+# The test file that will be executed via localFile
+COPY ${TEST} /test/test.js

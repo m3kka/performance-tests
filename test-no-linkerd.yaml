@@ -1,0 +1,20 @@
+# This manifest allows to run a test without linkerd enabled. It's meant to be
+# used for testing purposes.
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: test-no-linkerd
+spec:
+  parallelism: 1
+  starter:
+    image: { STARTER_IMAGE }
+    metadata:
+      annotations:
+        linkerd.io/inject: disabled
+  runner:
+    image: { RUNNER_IMAGE }
+    metadata:
+      annotations:
+        linkerd.io/inject: disabled
+  script:
+    localFile: /test/test.js
