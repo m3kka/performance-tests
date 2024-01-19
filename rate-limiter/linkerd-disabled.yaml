@@ -1,0 +1,21 @@
+# This CR adds an annotation onto both starter and runner jobs to disable
+# the linkerd proxy injection. This is not the preferred solution to solve
+# the issue with pending jobs but it's still one that is good to have to verify
+# whether any issue with testing may be related to linkerd.
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: run-k6
+spec:
+  parallelism: 1
+  starter:
+    metadata:
+      annotations:
+        linkerd.io/inject: disabled
+  runner:
+    image: { RUNNER_IMAGE }
+    metadata:
+      annotations:
+        linkerd.io/inject: disabled
+  script:
+    localFile: /test/test.js
