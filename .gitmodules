@@ -1,3 +1,0 @@
-[submodule "k6-operator"]
-	path = k6-operator
-	url = git@github.com:m3kka/k6-operator.git
